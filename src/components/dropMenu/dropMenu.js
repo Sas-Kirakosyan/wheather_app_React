@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Grow from "@material-ui/core/Grow";
@@ -7,12 +8,14 @@ import Popper from "@material-ui/core/Popper";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import { makeStyles } from "@material-ui/core/styles";
-import { sities } from "../../helper/helper";
+
+import { cities } from "../../helper/helper";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     color: "white",
-    marginRight: "25px",
+    marginLeft: "25px",
+    paddingTop: "25px",
   },
   paper: {
     marginRight: theme.spacing(2),
@@ -22,30 +25,40 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function DropMenu(props) {
+function DropMenu({
+  handleClose,
+  handleChooseCity,
+  anchorRef,
+  open,
+  handleToggle,
+  anchorEl,
+  autoFocusItem,
+  handleListKeyDown,
+}) {
   const classes = useStyles();
 
   const handleButtonClick = (e) => {
-    props.handleClose(e);
-    props.handleChooseCity(e);
+    handleClose(e);
+    handleChooseCity(e);
   };
 
   return (
     <div className={classes.root}>
       <Button
-        ref={props.anchorRef}
-        aria-controls={props.open ? "menu-list-grow" : undefined}
+        ref={anchorRef}
+        aria-controls={open ? "menu-list-grow" : undefined}
         aria-haspopup="true"
-        onClick={props.handleToggle}
+        onClick={handleToggle}
         variant="contained"
         color="primary"
         size="large"
+        className={classes.btn}
       >
         Choose the city
       </Button>
       <Popper
-        open={props.open}
-        anchorEl={props.anchorEl}
+        open={open}
+        anchorEl={anchorEl}
         role={undefined}
         transition
         disablePortal
@@ -59,15 +72,15 @@ export default function DropMenu(props) {
             }}
           >
             <Paper>
-              <ClickAwayListener onClickAway={props.handleClose}>
+              <ClickAwayListener onClickAway={handleClose}>
                 <MenuList
                   className={classes.menuList}
-                  autoFocusItem={props.autoFocusItem}
+                  autoFocusItem={autoFocusItem}
                   id="menu-list-grow"
-                  onKeyDown={props.handleListKeyDown}
+                  onKeyDown={handleListKeyDown}
                 >
-                  {sities.map((el) => (
-                    <MenuItem onClick={(e) => handleButtonClick(el)}>
+                  {cities.map((el) => (
+                    <MenuItem key={el} onClick={(e) => handleButtonClick(el)}>
                       {el}
                     </MenuItem>
                   ))}
@@ -80,3 +93,16 @@ export default function DropMenu(props) {
     </div>
   );
 }
+
+DropMenu.propTypes = {
+  open: PropTypes.bool,
+  handleClose: PropTypes.func,
+  handleChooseCity: PropTypes.func,
+  anchorRef: PropTypes.instanceOf(Object),
+  handleToggle: PropTypes.func,
+  anchorEl: PropTypes.instanceOf(Object),
+  autoFocusItem: PropTypes.bool,
+  handleListKeyDown: PropTypes.func,
+};
+
+export default DropMenu;

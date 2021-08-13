@@ -16,19 +16,18 @@ function App() {
   const [open, setOpen] = React.useState(false);
   const [city, setCity] = useState("");
   const [value, setValue] = useState("");
+
   const state = useSelector((state) => state);
   const { loading, error } = state;
-
   const weather = state?.data?.main;
   const cloudOrSunny = state?.data?.weather[0];
 
-  console.log("state", state, weather);
   useEffect(() => {
     if (city.length) {
       dispatch(getDataCreateor(city));
       setValue("");
     }
-  }, [city]);
+  }, [city, dispatch]);
 
   useEffect(() => {
     if (prevOpen.current === true && open === false) {
@@ -47,7 +46,7 @@ function App() {
     { className: "cloud", title: cloudOrSunny?.main },
   ];
 
-  const handleToggle = (e) => {
+  const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
 
@@ -63,7 +62,6 @@ function App() {
   };
 
   const handleChenge = (e) => {
-    console.log(e.target.value);
     setValue(e.target.value);
   };
 
@@ -77,20 +75,22 @@ function App() {
   return (
     <div className="app">
       <div className="search_container">
-        <DropMenu
-          handleChooseCity={handleChooseCity}
-          anchorRef={anchorRef}
-          autoFocusItem={open}
-          anchorEl={anchorRef.current}
-          handleToggle={handleToggle}
-          handleClose={handleClose}
-          open={open}
-        />
         <Input
           handleSubmit={handleSubmit}
           handleChenge={handleChenge}
           value={value}
         />
+        <div className="dropmenu_wrap">
+          <DropMenu
+            handleChooseCity={handleChooseCity}
+            anchorRef={anchorRef}
+            autoFocusItem={open}
+            anchorEl={anchorRef.current}
+            handleToggle={handleToggle}
+            handleClose={handleClose}
+            open={open}
+          />
+        </div>
       </div>
 
       <div className="data_container">

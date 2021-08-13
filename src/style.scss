@@ -20,14 +20,26 @@ body {
     width: 100%;
     display: flex;
     justify-content: center;
-    padding-top: 25px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+    @media only screen and (max-width: 411px) {
+      transform: scale(0.9);
+    }
+    .dropmenu_wrap {
+      @media only screen and (max-width: 540px) {
+        display: none;
+      }
+    }
   }
 
   .data_container {
     display: flex;
     justify-content: center;
-
-    @media only screen and (max-width: 420px) {
+    min-height: 300px;
+    align-items: center;
+    z-index: 0;
+    @media only screen and (max-width: 540px) {
       transform: scale(0.8);
     }
 

@@ -7,13 +7,13 @@ export const axsiosInstance = axios.create({
   timeout: 60000,
 });
 
-const successResponse = (response) => response;
+// const successResponse = (response) => response;
 
-const errorResponse = (error) => Promise.reject(error);
+// const errorResponse = (error) => Promise.reject(error);
 
-axsiosInstance.interceptors.request.use(
-  async (config) => config,
-  (error) => Promise.reject(error)
-);
+// axsiosInstance.interceptors.request.use(
+//   async (config) => config,
+//   (error) => Promise.reject(error)
+// );
 
-axsiosInstance.interceptors.request.use(successResponse, errorResponse);
+// axsiosInstance.interceptors.request.use(successResponse, errorResponse);

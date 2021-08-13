@@ -6,8 +6,6 @@ import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from "@material-ui/icons/Search";
 import FormControl from "@material-ui/core/FormControl";
 
-//proptypes resposive btn end input internet@ anjatel u call anel.
-
 const useStyles = makeStyles((theme) => ({
   root: {
     // padding: "2px 4px",
@@ -15,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     width: 400,
     justifyContent: "space-between",
+    marginTop: "25px",
   },
   input: {
     marginLeft: theme.spacing(1),

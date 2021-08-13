@@ -16,4 +16,4 @@ axsiosInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-axsiosInstance.interceptors.request.use(successResponse, errorResponse);
+axsiosInstance.interceptors.response.use(successResponse, errorResponse);
